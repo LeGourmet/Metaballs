@@ -2,6 +2,10 @@ public class Center{
   public PVector pos;
   public PVector velocity;
   
+  public Center(float p_min, float p_max){
+    //PVector
+  }
+  
   public Center(PVector p_pos, PVector p_vel){
     this.pos = p_pos;
     this.velocity = p_vel;

@@ -3,7 +3,14 @@ class Metaball extends Primitive{
   public float radius;
   private float radius2;
   
-   public Metaball(Center p_center, float p_radius){
+  public Metaball(){
+    super();
+    //this.center = new center();
+    this.radius = random(20,60);
+    this.radius2 = radius*radius;
+  }
+  
+  public Metaball(Center p_center, float p_radius){
     super();
     this.center = p_center;
     this.radius = p_radius;

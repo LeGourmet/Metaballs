@@ -1,7 +1,8 @@
-final int NB = 30;        // nomber of vertice by size
-final int SIZE = 8;      // size of 1 vertice
-final int MAX_LIMITE = NB*SIZE/2;
-final int MIN_LIMITE = -MAX_LIMITE;
+final int NB = 25;                  // nomber of vertice by size
+final int SIZE = 8;                 // size of 1 vertice
+final int MAX_LIMITE = NB*SIZE/2;   // LIMITE MAX OF CUBE (FOR VELOCITY)
+final int MIN_LIMITE = -MAX_LIMITE; // LIMITE MIN OF CUBE (FOR VELOCITY)
+final int NB_OBJ = 5;               // number of metaball
 
 float angle = 0;
 ArrayList<Primitive> primitives = new ArrayList<>();
@@ -10,19 +11,13 @@ Point[][][] points = new Point[NB+1][NB+1][NB+1];
 
 void setup() {
   size(500, 500, P3D);
-  primitives.add(new Metaball(new Center(new PVector(0,0,0),new PVector(0,0,0)), 20));
-  primitives.add(new Metaball(new Center(new PVector(0,0,0),new PVector(-1,-1,-1)), 15));
-  primitives.add(new Metaball(new Center(new PVector(0,0,0),new PVector(1,0.5,0.7)), 15));
-  primitives.add(new Metaball(new Center(new PVector(0,0,0),new PVector(4,0,0.31)), 15));
-  primitives.add(new Metaball(new Center(new PVector(0,0,0),new PVector(1,-1,-2)), 15));
+  for(int i=0; i<NB_OBJ ;i++){primitives.add(new Metaball(MIN_LIMITE,MAX_LIMITE));}
+  primitives.add(new Metaplane(MIN_LIMITE+SIZE+1));
   
-  for(int x=0; x<=NB ;x++){
-    for(int y=0; y<=NB ;y++){
-      for(int z=0; z<=NB ;z++){
+  for(int x=0; x<=NB ;x++)
+    for(int y=0; y<=NB ;y++)
+      for(int z=0; z<=NB ;z++)
         points[x][y][z] = new Point(new PVector(x*SIZE+MIN_LIMITE, y*SIZE+MIN_LIMITE, z*SIZE+MIN_LIMITE));
-      }
-    }
-  }
   
   for(int x=0; x<NB ;x++){
     for(int y=0; y<NB ;y++){
@@ -54,17 +49,13 @@ void draw() {
   translate(width/2, height/2, -MIN_LIMITE);
   rotateY(angle);
 
-  // todo update+1
-
-  for(int x=0; x<NB ;x++){
-    for(int y=0; y<NB ;y++){
-      for(int z=0; z<NB ;z++){
+  for(int x=0; x<=NB ;x++)
+    for(int y=0; y<=NB ;y++)
+      for(int z=0; z<=NB ;z++)
         points[x][y][z].update(primitives);
-      }
-    }
-  }
+      
   
-  for(Tetrahedra t : field){t.display();}
+  for(Tetrahedra t : field){t.display();} // todo change for real Methode
   
   for(Primitive p : primitives){p.move(MIN_LIMITE,MAX_LIMITE);}
   

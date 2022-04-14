@@ -5,7 +5,8 @@ final int MIN_LIMITE = -MAX_LIMITE;
 
 float angle = 0;
 ArrayList<Primitive> primitives = new ArrayList<>();
-Point[][][] field = new Point[NB+1][NB+1][NB+1];
+ArrayList<Tetrahedra> field = new ArrayList<>();
+Point[][][] points = new Point[NB+1][NB+1][NB+1];
 
 void setup() {
   size(500, 500, P3D);
@@ -18,7 +19,28 @@ void setup() {
   for(int x=0; x<=NB ;x++){
     for(int y=0; y<=NB ;y++){
       for(int z=0; z<=NB ;z++){
-        field[x][y][z] = new Point(new PVector(x*SIZE+MIN_LIMITE, y*SIZE+MIN_LIMITE, z*SIZE+MIN_LIMITE));
+        points[x][y][z] = new Point(new PVector(x*SIZE+MIN_LIMITE, y*SIZE+MIN_LIMITE, z*SIZE+MIN_LIMITE));
+      }
+    }
+  }
+  
+  for(int x=0; x<NB ;x++){
+    for(int y=0; y<NB ;y++){
+      for(int z=0; z<NB ;z++){
+        Point p0 = points[x  ][y  ][z  ];
+        Point p1 = points[x+1][y  ][z  ];
+        Point p2 = points[x  ][y+1][z  ];
+        Point p3 = points[x+1][y+1][z  ];
+        Point p4 = points[x  ][y  ][z+1];
+        Point p5 = points[x+1][y  ][z+1];
+        Point p6 = points[x  ][y+1][z+1];
+        Point p7 = points[x+1][y+1][z+1];
+        
+        field.add(new Tetrahedra(p0, p2, p3, p6));
+        field.add(new Tetrahedra(p0, p3, p5, p6));
+        field.add(new Tetrahedra(p0, p4, p5, p6));
+        field.add(new Tetrahedra(p0, p1, p3, p5));
+        field.add(new Tetrahedra(p3, p5, p6, p7));
       }
     }
   }
@@ -37,40 +59,14 @@ void draw() {
   for(int x=0; x<NB ;x++){
     for(int y=0; y<NB ;y++){
       for(int z=0; z<NB ;z++){
-        field[x][y][z].update(primitives);
-        Point[] points = findBox(x,y,z);
-     
-
-        Tetrahedra t1 = new Tetrahedra(points[0], points[2], points[3], points[6]);
-        t1.display();
-        Tetrahedra t2 = new Tetrahedra(points[0], points[3], points[5], points[6]);
-        t2.display();
-        Tetrahedra t3 = new Tetrahedra(points[0], points[4], points[5], points[6]);
-        t3.display();
-        Tetrahedra t4 = new Tetrahedra(points[0], points[1], points[3], points[5]);
-        t4.display();
-        Tetrahedra t5 = new Tetrahedra(points[3], points[5], points[6], points[7]);
-        t5.display();
+        points[x][y][z].update(primitives);
       }
     }
   }
   
+  for(Tetrahedra t : field){t.display();}
+  
   for(Primitive p : primitives){p.move(MIN_LIMITE,MAX_LIMITE);}
   
   angle += PI/150;
-}
-
-Point[] findBox(int p_x, int p_y, int p_z){
-  Point[] points = new Point[8];
-  
-  points[0] = field[p_x  ][p_y  ][p_z  ];
-  points[1] = field[p_x+1][p_y  ][p_z  ];
-  points[2] = field[p_x  ][p_y+1][p_z  ];
-  points[3] = field[p_x+1][p_y+1][p_z  ];
-  points[4] = field[p_x  ][p_y  ][p_z+1];
-  points[5] = field[p_x+1][p_y  ][p_z+1];
-  points[6] = field[p_x  ][p_y+1][p_z+1];
-  points[7] = field[p_x+1][p_y+1][p_z+1];
-  
-  return points;
 }

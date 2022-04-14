@@ -14,7 +14,7 @@ public class Tetrahedra{
   }
   
   public void display(){
-    if(true){
+    if(points[0].valid && points[1].valid && points[2].valid && points[3].valid){
       beginShape(TRIANGLE);
       my_vertex(points[0]);
       my_vertex(points[1]);

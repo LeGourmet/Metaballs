@@ -2,24 +2,25 @@ void vertex(PVector p_p){
   vertex(p_p.x,p_p.y,p_p.z);
 }
 
-void triangle(PVector p_p1, PVector p_p2, PVector p_p3){
-  beginShape();
-  vertex(p_p1);
-  vertex(p_p2);
-  vertex(p_p3);
+void triangle(Point p_p1, Point p_p2, Point p_p3){
+  beginShape(TRIANGLE);
+  vertex(p_p1.pos);
+  vertex(p_p2.pos);
+  vertex(p_p3.pos);
   endShape();
 }
 
-void quad(PVector p_p1, PVector p_p2, PVector p_p3,  PVector p_p4){
+void quad(Point p_p1, Point p_p2, Point p_p3, Point p_p4){
   beginShape();
-  vertex(p_p1);
-  vertex(p_p2);
-  vertex(p_p3);
-  vertex(p_p4);
+  vertex(p_p1.pos);
+  vertex(p_p2.pos);
+  vertex(p_p3.pos);
+  vertex(p_p4.pos);
   endShape();
 }
  
 Point interp(Point p_p1, Point p_p2, ArrayList<Primitive> p_primitives) {
+  if(p_p1.valid==p_p2.valid){return null;}
   return interpRec(p_p1, p_p2, p_primitives, REC_INTERP);
 }
 

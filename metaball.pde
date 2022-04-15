@@ -1,14 +1,13 @@
 class Metaball extends Primitive{
   public PVector pos;
   public PVector velocity;
-  public float radius;
   private float radius2;
   
   public Metaball(float p_min, float p_max){
     super();
     this.pos = new PVector(random(p_min,p_max),random(p_min,p_max),random(p_min,p_max));
     this.velocity = new PVector(random(-1,1),random(-1,1),random(-1,1));
-    this.radius = random(20,40);
+    float radius = random(20,40);
     this.radius2 = radius*radius;
   }
   
@@ -16,7 +15,6 @@ class Metaball extends Primitive{
     super();
     this.pos = p_center;
     this.velocity = p_velocity;
-    this.radius = p_radius;
     this.radius2 = p_radius*p_radius;
   }
   

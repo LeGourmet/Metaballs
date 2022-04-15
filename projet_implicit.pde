@@ -13,7 +13,6 @@ Point[][][] points = new Point[NB+1][NB+1][NB+1];
 void setup() {
   size(500, 500, P3D);
   for(int i=0; i<NB_OBJ ;i++){primitives.add(new Metaball(MIN_LIMITE,MAX_LIMITE));}
-  primitives.add(new Metaball(new PVector(0,0,0),new PVector(0,0,0),50));
   primitives.add(new Metaplane(MIN_LIMITE+SIZE+1));
   
   for(int x=0; x<=NB ;x++)
@@ -56,10 +55,9 @@ void draw() {
       for(int z=0; z<=NB ;z++)
         points[x][y][z].update(primitives);
       
-  
   for(Tetrahedra t : field){t.update(primitives);}
-  
   for(Primitive p : primitives){p.move(MIN_LIMITE,MAX_LIMITE);}
+  println(frameRate);
   
   angle += PI/150;
 }

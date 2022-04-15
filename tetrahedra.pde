@@ -1,37 +1,50 @@
 public class Tetrahedra{
   public Point[] points;
-  public boolean valid;
-  public boolean ambiguous;
   
   public Tetrahedra( Point p_p1, Point p_p2, Point p_p3, Point p_p4){
     points = new Point[]{p_p1, p_p2, p_p3, p_p4};
-    valid = p_p1.valid && p_p2.valid && p_p3.valid && p_p4.valid;
-    ambiguous = !valid && (p_p1.valid || p_p2.valid || p_p3.valid || p_p4.valid);
   }
   
-  private void my_vertex(Point p_p){
-    vertex(p_p.pos.x, p_p.pos.y, p_p.pos.z);
-  }
+  public void update(){
+    PVector a, b, c, d, e, f;
+    
+    a = interp(points[0], points[1]).pos;
+    b = interp(points[1], points[2]).pos;
+    c = interp(points[2], points[3]).pos;
+    d = interp(points[3], points[0]).pos;
+    e = interp(points[2], points[0]).pos;
+    f = interp(points[3], points[1]).pos;
   
-  public void display(){
-    if(points[0].valid && points[1].valid && points[2].valid && points[3].valid){
-      beginShape(TRIANGLE);
-      my_vertex(points[0]);
-      my_vertex(points[1]);
-      my_vertex(points[2]);
-      
-      my_vertex(points[0]);
-      my_vertex(points[1]);
-      my_vertex(points[3]);
-      
-      my_vertex(points[0]);
-      my_vertex(points[2]);
-      my_vertex(points[3]);
-      
-      my_vertex(points[1]);
-      my_vertex(points[2]);
-      my_vertex(points[3]);
-      endShape(CLOSE);
+    switch(8*points[0].valid + 4*points[1].valid + 2*points[2].valid + points[3].valid ){
+      case 1:
+        triangle(a, d, e); break;
+      case 2:
+        triangle(c, b, e); break;
+      case 3:
+        quad(b, c, d, a); break;
+      case 4:
+        triangle(a, b, f); break;
+      case 5:
+        quad(b, f, e, d); break;
+      case 6:
+        quad(a, f, c, e); break;
+      case 7:
+        triangle(c, d, f); break;
+      case 8:
+        triangle(c, d, f); break;
+      case 9:
+        quad(a, f, c, e); break;
+      case 10:
+        quad(b, f, e, d); break;
+      case 11:
+        triangle(a, b, f); break;
+      case 12:
+        quad(b, c, d, a); break;
+      case 13:
+        triangle(c, b, e); break;
+      case 14:
+        triangle(a, d, e); break;
     }
   }
+  
 }

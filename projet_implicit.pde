@@ -3,6 +3,7 @@ final int SIZE = 8;                 // size of 1 vertice
 final int MAX_LIMITE = NB*SIZE/2;   // LIMITE MAX OF CUBE (FOR VELOCITY)
 final int MIN_LIMITE = -MAX_LIMITE; // LIMITE MIN OF CUBE (FOR VELOCITY)
 final int NB_OBJ = 5;               // number of metaball
+final int REC_INTERP = 5;
 
 float angle = 0;
 ArrayList<Primitive> primitives = new ArrayList<>();
@@ -55,7 +56,7 @@ void draw() {
         points[x][y][z].update(primitives);
       
   
-  for(Tetrahedra t : field){t.display();} // todo change for real Methode
+  for(Tetrahedra t : field){t.update();}
   
   for(Primitive p : primitives){p.move(MIN_LIMITE,MAX_LIMITE);}
   

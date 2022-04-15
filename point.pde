@@ -1,13 +1,16 @@
 public class Point{
   public PVector pos;
-  public boolean valid = false;
+  public float value = 0.f;
+  public int valid = 0;  // 1=valid and 0=not
   
   public Point(PVector p_pos){pos=p_pos;}
   
-    public void update(ArrayList<Primitive> p_primitives){
+  public void update(ArrayList<Primitive> p_primitives){
+    value = 0.f;
     for(Primitive primitive : p_primitives){
-      if(primitive.evaluate(pos)>0.f){valid = true; return;}
+      value += primitive.evaluate(pos);
     }
-    valid = false;
+    valid = (value >= 0.5f ? 1 : 0);
   }
+  
 }

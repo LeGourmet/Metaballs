@@ -1,9 +1,9 @@
-final int NB = 25;                  // nomber of vertice by size
-final int SIZE = 8;                 // size of 1 vertice
+final int NB = 30;                  // number of vertex by size
+final int SIZE = 6;                 // size of 1 vertice
 final int MAX_LIMITE = NB*SIZE/2;   // LIMITE MAX OF CUBE (FOR VELOCITY)
 final int MIN_LIMITE = -MAX_LIMITE; // LIMITE MIN OF CUBE (FOR VELOCITY)
-final int NB_OBJ = 5;               // number of metaball
-final int REC_INTERP = 5;
+final int NB_OBJ = 10;               // number of metaball
+final int REC_INTERP = 3;
 
 float angle = 0;
 ArrayList<Primitive> primitives = new ArrayList<>();
@@ -55,7 +55,7 @@ void draw() {
       for(int z=0; z<=NB ;z++)
         points[x][y][z].update(primitives);
       
-  for(Tetrahedra t : field){t.update(primitives);}
+  for(Tetrahedra t : field){beginShape(TRIANGLE); t.update(primitives); endShape(CLOSE);}
   for(Primitive p : primitives){p.move(MIN_LIMITE,MAX_LIMITE);}
   
   angle += PI/150;

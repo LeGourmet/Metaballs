@@ -22,7 +22,6 @@ public class Tetrahedra{
     Point e = interp(p1, p3, p_primitives);
     Point f = interp(p2, p3, p_primitives);
   
-    beginShape(TRIANGLE);
     if     (val==1 || val==14){triangle(c, e, f);}
     else if(val==2 || val==13){triangle(b, d, f);}
     else if(val==4 || val==11){triangle(a, d, e);}
@@ -31,7 +30,6 @@ public class Tetrahedra{
     else if(val==3 || val==12){quad(b, c, d, e);}
     else if(val==5 || val==10){quad(a, c, d, f);}
     else if(val==6 || val==9 ){quad(a, b, e, f);}
-    endShape(CLOSE);
   }
   
 }

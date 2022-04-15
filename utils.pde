@@ -2,21 +2,20 @@ void vertex(PVector p_p){
   vertex(p_p.x,p_p.y,p_p.z);
 }
 
-void triangle(Point p_p1, Point p_p2, Point p_p3){
-  beginShape(TRIANGLE);
+void triangle(Point p_p1, Point p_p2, Point p_p3){ // to call in a shape triangle
   vertex(p_p1.pos);
   vertex(p_p2.pos);
   vertex(p_p3.pos);
-  endShape();
 }
 
-void quad(Point p_p1, Point p_p2, Point p_p3, Point p_p4){
-  beginShape();
+void quad(Point p_p1, Point p_p2, Point p_p3, Point p_p4){ // to call in a shape triangle
   vertex(p_p1.pos);
+  vertex(p_p2.pos);
+  vertex(p_p3.pos);
+  
   vertex(p_p2.pos);
   vertex(p_p3.pos);
   vertex(p_p4.pos);
-  endShape();
 }
  
 Point interp(Point p_p1, Point p_p2, ArrayList<Primitive> p_primitives) {

@@ -57,7 +57,6 @@ void draw() {
       
   for(Tetrahedra t : field){t.update(primitives);}
   for(Primitive p : primitives){p.move(MIN_LIMITE,MAX_LIMITE);}
-  println(frameRate);
   
   angle += PI/150;
 }

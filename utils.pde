@@ -1,25 +1,31 @@
-void triangle(PVector p1, PVector p2, PVector p3){
-  line(p1.x, p1.y, p1.z, p2.x, p2.y, p2.z);
-  line(p2.x, p2.y, p2.z, p3.x, p3.y, p3.z);
-  line(p1.x, p1.y, p1.z, p3.x, p3.y, p3.z);
+void vertex(PVector p_p){
+  vertex(p_p.x,p_p.y,p_p.z);
 }
 
-void quad(PVector p1, PVector p2, PVector p3,  PVector p4){
-  line(p1.x, p1.y, p1.z, p2.x, p2.y, p2.z);
-  line(p2.x, p2.y, p2.z, p3.x, p3.y, p3.z);
-  line(p3.x, p3.y, p3.z, p4.x, p4.y, p4.z);
-  line(p1.x, p1.y, p1.z, p4.x, p4.y, p4.z);
+void triangle(PVector p_p1, PVector p_p2, PVector p_p3){
+  beginShape();
+  vertex(p_p1);
+  vertex(p_p2);
+  vertex(p_p3);
+  endShape();
+}
+
+void quad(PVector p_p1, PVector p_p2, PVector p_p3,  PVector p_p4){
+  beginShape();
+  vertex(p_p1);
+  vertex(p_p2);
+  vertex(p_p3);
+  vertex(p_p4);
+  endShape();
 }
  
-Point interp(Point p1, Point p2) {
-  return interpRec(p1, p2, REC_INTERP);
+Point interp(Point p_p1, Point p_p2, ArrayList<Primitive> p_primitives) {
+  return interpRec(p_p1, p_p2, p_primitives, REC_INTERP);
 }
 
-Point interpRec(Point p1, Point p2, int level) {
-  Point m = new Point(PVector.lerp(p1.pos, p2.pos, 0.5));
-  if ((level == 0) || (p1.valid == p2.valid)) 
-    return m;
-  if (m.valid == p1.valid) 
-    return interpRec(m, p2, level-1);
-  return interpRec(p1, m, level-1);
+Point interpRec(Point p_p1, Point p_p2, ArrayList<Primitive> p_primitives , int p_level) {
+  Point m = new Point(PVector.lerp(p_p1.pos, p_p2.pos, 0.5), p_primitives);
+  if ((p_level <= 0) || (p_p1.valid == p_p2.valid))  { return m; }
+  if (m.valid == p_p1.valid) { return interpRec(m, p_p2, p_primitives, p_level-1); }
+  return interpRec(p_p1, m, p_primitives, p_level-1);
 }

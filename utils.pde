@@ -2,6 +2,10 @@ void vertex(PVector p_p){
   vertex(p_p.x,p_p.y,p_p.z);
 }
 
+void translate(PVector p_v){
+  translate(p_v.x,p_v.y,p_v.z);
+}
+
 void triangle(Point p_p1, Point p_p2, Point p_p3){ // to call in a shape triangle
   vertex(p_p1.pos);
   vertex(p_p2.pos);
@@ -19,13 +23,14 @@ void quad(Point p_p1, Point p_p2, Point p_p3, Point p_p4){ // to call in a shape
 }
  
 Point interp(Point p_p1, Point p_p2, ArrayList<Primitive> p_primitives) {
-  if(p_p1.valid==p_p2.valid){return null;}
-  return interpRec(p_p1, p_p2, p_primitives, REC_INTERP);
-}
-
-Point interpRec(Point p_p1, Point p_p2, ArrayList<Primitive> p_primitives , int p_level) {
-  Point m = new Point(PVector.lerp(p_p1.pos, p_p2.pos, 0.5), p_primitives);
-  if ((p_level <= 0) || (p_p1.valid == p_p2.valid))  { return m; }
-  if (m.valid == p_p1.valid) { return interpRec(m, p_p2, p_primitives, p_level-1); }
-  return interpRec(p_p1, m, p_primitives, p_level-1);
+  Point m = null;
+  Point start = p_p1;
+  Point stop = p_p2;
+  for(int i=0; i<REC_INTERP ;i++){
+    if(start.valid == stop.valid){break;}
+    m = new Point(PVector.lerp(start.pos, stop.pos, 0.5), p_primitives);
+    if(m.valid == p_p1.valid){start=m;}
+    else{stop=m;}
+  }
+  return m;
 }

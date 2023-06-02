@@ -1,10 +1,8 @@
 abstract class Primitive{
-  private float _fact = 8./9.;
-  
   public Primitive(){}
 
-  float blend(float p_dist){ // distance au carre
-    return (p_dist<1. ? _fact*(1.-p_dist)*(1.-p_dist) : 0.);
+  float blend(float p_distSq){
+    return (p_distSq<1.f ? (1.-p_distSq)*(1.-p_distSq)*8.f/9.f : 0.f);
   }
   
   public abstract float evaluate(PVector p_point);

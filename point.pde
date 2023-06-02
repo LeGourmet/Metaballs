@@ -1,21 +1,22 @@
 public class Point{
-  public PVector pos;
-  public ArrayList<Primitive> prims;
-  public int valid;  // 1=valid and 0=invalid
+  private PVector _position;
+  private boolean _valid;
   
-  public Point(PVector p_pos, ArrayList<Primitive> p_primitives){
-    pos=p_pos;
-    prims = p_primitives;
+  public Point(PVector p_pos){
+    this._position = p_pos;
     update();
   }
+  
+  public PVector getPosition() { return _position; }
+  public int     isValid() { return (_valid) ? 1 : 0; }
   
   public void update(){
     float value = 0.f;
     
-    for(Primitive primitive : prims)
-      value += primitive.evaluate(pos);
+    for(Primitive primitive : primitives)
+      value += primitive.evaluate(_position);
     
-    valid = (value >= 0.5f ? 1 : 0);
+    _valid = value >= 0.5f;
   }
   
 }
